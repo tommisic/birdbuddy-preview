@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bird Buddy TikTok Creator Program | Turn Birds Into Bank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #39FF14;
+            --neon-green-dim: #2ECC0F;
+            --neon-glow: 0 0 20px rgba(57, 255, 20, 0.5), 0 0 40px rgba(57, 255, 20, 0.3), 0 0 60px rgba(57, 255, 20, 0.1);
+            --neon-glow-strong: 0 0 10px rgba(57, 255, 20, 0.8), 0 0 30px rgba(57, 255, 20, 0.6), 0 0 50px rgba(57, 255, 20, 0.4), 0 0 80px rgba(57, 255, 20, 0.2);
+            --bg-dark: #0A0A0A;
+            --bg-card: #111111;
+            --bg-card-hover: #1a1a1a;
+            --text-white: #FFFFFF;
+            --text-gray: #888888;
+            --text-dim: #555555;
+            --border-dark: #222222;
+            --border-glow: #39FF14;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-dark);
+        }
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo svg { height: 32px; width: auto; }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--neon-green); }
+        .nav-cta {
+            background: var(--neon-green) !important;
+            color: black !important;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700 !important;
+            transition: all 0.3s ease;
+            box-shadow: var(--neon-glow);
+        }
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--neon-glow-strong);
+        }
+
+        /* Marquee */
+        .marquee-container {
+            background: var(--neon-green);
+            padding: 0.75rem 0;
+            overflow: hidden;
+            margin-top: 65px;
+        }
+        .marquee {
+            display: flex;
+            animation: marquee 30s linear infinite;
+        }
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0 2rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: black;
+            white-space: nowrap;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(57, 255, 20, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-text { animation: fadeInUp 0.8s ease-out; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .earnings-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            padding: 0.6rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+        .earnings-badge span:first-child {
+            color: var(--text-gray);
+        }
+        .earnings-amount {
+            color: var(--neon-green);
+            font-weight: 800;
+            text-shadow: var(--neon-glow);
+        }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+        .hero h1 .highlight {
+            color: var(--neon-green);
+            text-shadow: var(--neon-glow);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            max-width: 540px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--neon-green);
+            color: black;
+            padding: 1.1rem 2.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--neon-glow);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--neon-glow-strong);
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: var(--text-white);
+            padding: 1.1rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-dark);
+        }
+        .btn-secondary:hover {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+        .social-proof {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .avatars {
+            display: flex;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-dark);
+            margin-left: -12px;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .avatar:first-child { margin-left: 0; }
+        .social-proof-text {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+        .social-proof-text strong {
+            color: var(--text-white);
+        }
+
+        /* Phone Mockup */
+        .hero-visual {
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        .phone-mockup {
+            position: relative;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .phone-frame {
+            background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%);
+            border-radius: 45px;
+            padding: 12px;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(145deg, var(--neon-green), transparent 50%);
+            border-radius: 47px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .phone-screen {
+            background: #000;
+            border-radius: 35px;
+            overflow: hidden;
+            aspect-ratio: 9/16;
+            position: relative;
+        }
+        .phone-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .tiktok-ui {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 15%, transparent 75%, rgba(0,0,0,0.6) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1rem;
+            pointer-events: none;
+        }
+        .tiktok-header {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .tiktok-header .active { color: white; }
+        .tiktok-bottom { padding: 0.5rem; }
+        .tiktok-user {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 0.4rem;
+        }
+        .tiktok-caption {
+            color: white;
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+        .tiktok-sidebar {
+            position: absolute;
+            right: 0.6rem;
+            bottom: 5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+        .tiktok-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.15rem;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+        .tiktok-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .floating-stats {
+            position: absolute;
+            inset: -40px;
+            pointer-events: none;
+        }
+        .float-stat {
+            position: absolute;
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: float 4s ease-in-out infinite;
+        }
+        .float-stat .value { color: var(--neon-green); }
+        .float-stat:nth-child(1) { top: 10%; left: -50px; animation-delay: 0s; }
+        .float-stat:nth-child(2) { top: 50%; right: -60px; animation-delay: 1.5s; }
+        .float-stat:nth-child(3) { bottom: 15%; left: -30px; animation-delay: 3s; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border-dark);
+            border-bottom: 1px solid var(--border-dark);
+        }
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        .stat-item { text-align: center; }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            text-shadow: var(--neon-glow);
+            margin-bottom: 0.25rem;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        /* Problem/Solution Section */
+        .problem-solution {
+            padding: 6rem 2rem;
+        }
+        .ps-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-header h2 {
+            font-size: 2.75rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        .comparison-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .comparison-card.wrong {
+            border-color: #ff4444;
+        }
+        .comparison-card.wrong::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff4444, #ff6666);
+        }
+        .comparison-card.right {
+            border-color: var(--neon-green);
+        }
+        .comparison-card.right::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-green-dim));
+            box-shadow: var(--neon-glow);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .wrong .card-icon { background: rgba(255, 68, 68, 0.2); }
+        .right .card-icon { background: rgba(57, 255, 20, 0.2); }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .wrong .card-title { color: #ff6666; }
+        .right .card-title { color: var(--neon-green); }
+        .card-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .card-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text-gray);
+        }
+        .card-list li span {
+            flex-shrink: 0;
+        }
+        .wrong .card-list li span { color: #ff4444; }
+        .right .card-list li span { color: var(--neon-green); }
+
+        /* Benefits */
+        .benefits {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-card) 50%, var(--bg-dark) 100%);
+        }
+        .benefits-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .benefit-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 21px;
+            background: linear-gradient(135deg, var(--neon-green), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-green);
+        }
+        .benefit-card:hover::before { opacity: 0.3; }
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(57, 255, 20, 0.1);
+            border: 1px solid rgba(57, 255, 20, 0.3);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .benefit-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .benefit-card p {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Steps */
+        .steps {
+            padding: 6rem 2rem;
+        }
+        .steps-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .step-item {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border-dark);
+            position: relative;
+        }
+        .step-item:last-child { border-bottom: none; }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--bg-card);
+            border: 2px solid var(--neon-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            flex-shrink: 0;
+            box-shadow: var(--neon-glow);
+        }
+        .step-content h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .step-content p {
+            font-size: 1rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Testimonials Marquee */
+        .testimonials {
+            padding: 6rem 2rem;
+            background: var(--bg-card);
+            overflow: hidden;
+        }
+        .testimonials-track {
+            display: flex;
+            gap: 1.5rem;
+            animation: scrollTestimonials 40s linear infinite;
+        }
+        @keyframes scrollTestimonials {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .testimonial-card {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 20px;
+            padding: 1.75rem;
+            min-width: 350px;
+            flex-shrink: 0;
+        }
+        .testimonial-quote {
+            font-size: 1.5rem;
+            color: var(--neon-green);
+            margin-bottom: 0.5rem;
+        }
+        .testimonial-text {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+        .testimonial-text strong {
+            color: var(--text-white);
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .testimonial-avatar {
+            width: 44px;
+            height: 44px;
+            background: rgba(57, 255, 20, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .testimonial-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .testimonial-role {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* Commission */
+        .commission {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+        .commission::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(57, 255, 20, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .commission-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .commission-rate {
+            font-size: 8rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            text-shadow: var(--neon-glow-strong);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .commission-label {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+        }
+        .commission-perks {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .perk-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .perk-item span:first-child { font-size: 1.1rem; }
+
+        /* FAQ */
+        .faq {
+            padding: 6rem 2rem;
+            background: var(--bg-card);
+        }
+        .faq-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--border-dark);
+            padding: 1.5rem 0;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            gap: 1rem;
+        }
+        .faq-question h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .faq-toggle {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--neon-green);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+            background: var(--neon-green);
+            color: black;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-item.active .faq-answer { max-height: 200px; }
+        .faq-answer p {
+            padding-top: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+        .cta::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(0deg, rgba(57, 255, 20, 0.1) 0%, transparent 100%);
+            pointer-events: none;
+        }
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .cta h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .cta h2 span {
+            color: var(--neon-green);
+            text-shadow: var(--neon-glow);
+        }
+        .cta > .cta-content > p {
+            font-size: 1.15rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+        }
+        .cta-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            padding: 2.5rem;
+            border-radius: 24px;
+            text-align: left;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-white);
+            transition: all 0.3s ease;
+        }
+        .form-group input::placeholder { color: var(--text-dim); }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 0 3px rgba(57, 255, 20, 0.1);
+        }
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23888'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1rem;
+        }
+        .form-group select option {
+            background: var(--bg-dark);
+            color: var(--text-white);
+        }
+        .form-submit {
+            width: 100%;
+            background: var(--neon-green);
+            color: black;
+            padding: 1.1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+            box-shadow: var(--neon-glow);
+        }
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--neon-glow-strong);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border-dark);
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .footer-logo svg { height: 28px; }
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--neon-green); }
+        .footer-copy {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero h1 { font-size: 3rem; }
+            .hero p { max-width: 100%; margin: 0 auto 2.5rem; }
+            .hero-buttons { justify-content: center; }
+            .social-proof { justify-content: center; }
+            .phone-mockup { max-width: 260px; margin-top: 3rem; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+            .commission-rate { font-size: 5rem; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            .section-header h2 { font-size: 2rem; }
+            .cta h2 { font-size: 2.25rem; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .step-item { flex-direction: column; text-align: center; gap: 1rem; }
+            .step-number { margin: 0 auto; }
+        }
+        @media (max-width: 576px) {
+            .floating-stats { display: none; }
+            .commission-rate { font-size: 4rem; }
+            .stat-number { font-size: 2.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="logo">
+                <svg width="140" height="38" viewBox="0 0 180 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M60.4492 17.8811C60.4492 16.8971 61.2272 16.1191 62.2112 16.1191H67.8865C69.7168 16.1191 71.1585 16.6223 72.0742 17.538C72.8063 18.2701 73.1723 19.1628 73.1723 20.2609V20.3068C73.1723 22.1147 72.2113 23.1216 71.0673 23.7619C72.9205 24.4716 74.0651 25.6481 74.0651 27.7996V27.8454C74.0651 30.7744 71.6852 32.2391 68.0696 32.2391H62.2117C61.2278 32.2391 60.4498 31.4611 60.4498 30.4772V17.8816L60.4492 17.8811ZM67.1309 22.5949C68.6869 22.5949 69.6709 22.0917 69.6709 20.9018V20.8559C69.6709 19.8031 68.847 19.2081 67.3599 19.2081H63.8813V22.5949H67.1304H67.1309ZM68.069 29.149C69.625 29.149 70.5636 28.5999 70.5636 27.41V27.3641C70.5636 26.2884 69.7626 25.6251 67.9548 25.6251H63.8813V29.149H68.069Z" fill="white"/>
+                    <path d="M76.7617 21.5769C76.7617 20.6159 77.5397 19.8379 78.5007 19.8379C79.4617 19.8379 80.2397 20.6159 80.2397 21.5769V30.4974C80.2397 31.4584 79.4617 32.2364 78.5007 32.2364C77.5397 32.2364 76.7617 31.4584 76.7617 30.4974V21.5769Z" fill="white"/>
+                    <path d="M83.5117 21.5774C83.5117 20.6164 84.2897 19.8385 85.2507 19.8385C86.2117 19.8385 86.9897 20.6164 86.9897 21.5774V22.1265C87.4929 20.9366 88.3173 19.8379 89.3466 19.8379C90.3759 19.8379 91.0397 20.5476 91.0397 21.5315C91.0397 22.4467 90.4447 22.9963 89.7356 23.1564C87.9737 23.5683 86.9897 24.9183 86.9897 27.3899V30.4985C86.9897 31.4595 86.2117 32.2375 85.2507 32.2375C84.2897 32.2375 83.5117 31.4595 83.5117 30.4985V21.578V21.5774Z" fill="white"/>
+                    <path d="M105.183 30.5001C105.183 31.4611 104.405 32.2391 103.444 32.2391C102.483 32.2391 101.705 31.4611 101.705 30.5001V30.34C100.859 31.4841 99.6922 32.2391 97.8844 32.2391C95.0237 32.2391 92.3008 30.2292 92.3008 26.1328V26.0869C92.3008 21.9904 94.9778 19.8395 97.8844 19.8395C99.7375 19.8395 100.882 20.5945 101.705 21.5785V17.8581C101.705 16.8971 102.483 16.1191 103.444 16.1191C104.405 16.1191 105.183 16.8971 105.183 17.8581V30.499V30.5001ZM95.7782 26.0874V26.1333C95.7782 28.1701 97.1512 29.5201 98.776 29.5201C100.401 29.5201 101.751 28.1701 101.751 26.1333V26.0874C101.751 24.0507 100.401 22.7007 98.776 22.7007C97.1512 22.7007 95.7782 24.0283 95.7782 26.0874Z" fill="white"/>
+                    <path d="M150.324 30.5001C150.324 31.4611 149.546 32.2391 148.585 32.2391C147.624 32.2391 146.846 31.4611 146.846 30.5001V30.34C145.999 31.4841 144.833 32.2391 143.025 32.2391C140.164 32.2391 137.441 30.2292 137.441 26.1328V26.0869C137.441 21.9904 140.118 19.8395 143.025 19.8395C144.878 19.8395 146.023 20.5945 146.846 21.5785V17.8581C146.846 16.8971 147.624 16.1191 148.585 16.1191C149.546 16.1191 150.324 16.8971 150.324 17.8581V30.499V30.5001ZM140.919 26.0874V26.1333C140.919 28.1701 142.292 29.5201 143.917 29.5201C145.541 29.5201 146.891 28.1701 146.891 26.1333V26.0874C146.891 24.0507 145.541 22.7007 143.917 22.7007C142.292 22.7007 140.919 24.0283 140.919 26.0874Z" fill="white"/>
+                    <path d="M165.769 30.5001C165.769 31.4611 164.991 32.2391 164.03 32.2391C163.069 32.2391 162.291 31.4611 162.291 30.5001V30.34C161.445 31.4841 160.278 32.2391 158.47 32.2391C155.61 32.2391 152.887 30.2292 152.887 26.1328V26.0869C152.887 21.9904 155.564 19.8395 158.47 19.8395C160.323 19.8395 161.468 20.5945 162.291 21.5785V17.8581C162.291 16.8971 163.069 16.1191 164.03 16.1191C164.991 16.1191 165.769 16.8971 165.769 17.8581V30.499V30.5001ZM156.364 26.0874V26.1333C156.364 28.1701 157.737 29.5201 159.362 29.5201C160.987 29.5201 162.337 28.1701 162.337 26.1333V26.0874C162.337 24.0507 160.987 22.7007 159.362 22.7007C157.737 22.7007 156.364 24.0283 156.364 26.0874Z" fill="white"/>
+                    <path d="M108.293 17.8581C108.293 16.8971 109.071 16.1191 110.032 16.1191C110.993 16.1191 111.771 16.8971 111.771 17.8581V21.5785C112.595 20.5945 113.739 19.8395 115.592 19.8395C118.499 19.8395 121.176 21.9904 121.176 26.0869V26.1328C121.176 30.2292 118.453 32.2391 115.592 32.2391C113.784 32.2391 112.617 31.4835 111.771 30.34V30.5001C111.771 31.4611 110.993 32.2391 110.032 32.2391C109.071 32.2391 108.293 31.4611 108.293 30.5001V17.8593V17.8581ZM114.7 22.6996C113.076 22.6996 111.726 24.0496 111.726 26.0863V26.1322C111.726 28.169 113.076 29.519 114.7 29.519C116.325 29.519 117.698 28.169 117.698 26.1322V26.0863C117.698 24.0266 116.325 22.6996 114.7 22.6996Z" fill="white"/>
+                    <path d="M134.88 30.498C134.88 31.459 134.102 32.237 133.141 32.237C132.18 32.237 131.402 31.459 131.402 30.498V30.3603C130.601 31.3901 129.571 32.237 127.809 32.237C125.178 32.237 123.645 30.7302 123.645 27.9155V21.5769C123.645 20.6159 124.423 19.8379 125.384 19.8379C126.345 19.8379 127.123 20.6159 127.123 21.5769V26.8168C127.123 28.4646 127.901 29.3108 129.228 29.3108C130.555 29.3108 131.401 28.464 131.401 26.8168V21.5769C131.401 20.6159 132.179 19.8379 133.14 19.8379C134.101 19.8379 134.879 20.6159 134.879 21.5769V30.4974L134.88 30.498Z" fill="white"/>
+                    <path d="M169.52 35.6511C169.016 35.4681 168.421 35.0562 168.421 34.2093C168.421 33.3625 169.085 32.7905 169.794 32.7905C170.069 32.7905 170.229 32.8364 170.366 32.8823C170.663 32.9741 170.846 33.0194 171.098 33.0194C171.716 33.0194 172.014 32.9052 172.334 32.2873L172.449 32.0125L168.261 22.3101C168.169 22.0812 168.078 21.7381 168.078 21.5092C168.078 20.5252 168.833 19.8384 169.794 19.8384C170.664 19.8384 171.167 20.3192 171.465 21.1426L174.119 28.2821L176.682 21.1655C176.957 20.4329 177.46 19.8379 178.353 19.8379C179.245 19.8379 180 20.5246 180 21.4398C180 21.714 179.909 22.103 179.84 22.2636L175.561 32.5381C174.531 35.0321 173.501 35.9707 171.419 35.9707C170.641 35.9707 170.092 35.856 169.52 35.6506V35.6511Z" fill="white"/>
+                    <path d="M78.5032 18.1334C79.616 18.1334 80.5181 17.2313 80.5181 16.1184C80.5181 15.0056 79.616 14.1035 78.5032 14.1035C77.3904 14.1035 76.4883 15.0056 76.4883 16.1184C76.4883 17.2313 77.3904 18.1334 78.5032 18.1334Z" fill="white"/>
+                    <path d="M24.1791 0C10.8252 0 0 10.8252 0 24.1791C0 37.533 10.8252 48.3582 24.1791 48.3582C37.533 48.3582 48.3582 37.533 48.3582 24.1791C48.3582 10.8252 37.533 0 24.1791 0ZM26.7879 37.6119H21.4925C16.6701 37.6119 12.7612 33.703 12.7612 28.8806V28.2577C12.7612 27.5452 12.478 26.8618 11.9743 26.358L10.5868 24.9705C10.1496 24.5334 10.1496 23.8248 10.5868 23.3877L11.9743 22.0002C12.478 21.4965 12.7612 20.8131 12.7612 20.1006V19.4776C12.7612 14.6552 16.6701 10.7463 21.4925 10.7463H25.4356C29.9082 10.7463 33.6213 14.4062 33.5815 18.8787C33.5776 19.3634 33.5306 19.8375 33.4444 20.2981C33.1937 21.6364 33.4802 23.0211 34.2162 24.1662C35.0933 25.5308 35.6004 27.1556 35.597 28.8991C35.5869 33.7265 31.6153 37.6119 26.7879 37.6119Z" fill="white"/>
+                    <path d="M20.8226 21.1574C20.8226 22.4436 19.7905 23.488 18.5093 23.5076C18.5071 23.5081 18.5043 23.5081 18.5015 23.5081H18.4718C18.4069 23.5081 18.3431 23.5053 18.2799 23.5003C17.1347 23.4079 16.2213 22.4945 16.1289 21.3494C16.1239 21.2861 16.1211 21.2223 16.1211 21.1574C16.1211 20.9688 16.1435 20.7857 16.1855 20.61C16.2638 20.2803 16.4116 19.9775 16.6131 19.7184C17.0429 19.1637 17.7157 18.8066 18.4718 18.8066C19.1161 18.8066 19.6998 19.0658 20.1246 19.4856C20.5383 19.8941 20.8008 20.4555 20.8215 21.0779C20.822 21.1042 20.8226 21.1305 20.8226 21.1574Z" fill="white"/>
+                </svg>
+            </a>
+            <div class="nav-links">
+                <a href="#benefits">Benefits</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#testimonials">Creators</a>
+                <a href="#faq">FAQ</a>
+                <a href="#apply" class="nav-cta">Apply Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="marquee-container">
+        <div class="marquee">
+            <div class="marquee-item">🐦 Creator earnings: $1,429,716</div>
+            <div class="marquee-item">⭐ 500+ active creators</div>
+            <div class="marquee-item">🔥 50M+ video views</div>
+            <div class="marquee-item">💰 Up to 20% commission</div>
+            <div class="marquee-item">📦 Free Bird Buddy kit</div>
+            <div class="marquee-item">🚀 Viral content potential</div>
+            <div class="marquee-item">🐦 Creator earnings: $1,429,716</div>
+            <div class="marquee-item">⭐ 500+ active creators</div>
+            <div class="marquee-item">🔥 50M+ video views</div>
+            <div class="marquee-item">💰 Up to 20% commission</div>
+            <div class="marquee-item">📦 Free Bird Buddy kit</div>
+            <div class="marquee-item">🚀 Viral content potential</div>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="earnings-badge">
+                    <span>Creator earnings:</span>
+                    <span class="earnings-amount">$1,429,716.25</span>
+                </div>
+                <h1>Turn birds into <span class="highlight">passive income</span></h1>
+                <p>Join 500+ creators earning real money by sharing backyard bird content. Get a free Bird Buddy, create viral TikToks, and earn up to 20% on every sale.</p>
+                <div class="hero-buttons">
+                    <a href="#apply" class="btn-primary">Start Earning Now →</a>
+                    <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+                </div>
+                <div class="social-proof">
+                    <div class="avatars">
+                        <div class="avatar">🐦</div>
+                        <div class="avatar">🦅</div>
+                        <div class="avatar">🦜</div>
+                        <div class="avatar">🐤</div>
+                    </div>
+                    <div class="social-proof-text">
+                        <strong>4.9/5</strong> from 500+ creators
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-stats">
+                    <div class="float-stat"><span>❤️</span> <span class="value">245K</span> Likes</div>
+                    <div class="float-stat"><span>💰</span> <span class="value">$2,847</span> Earned</div>
+                    <div class="float-stat"><span>👁️</span> <span class="value">1.2M</span> Views</div>
+                </div>
+                <div class="phone-mockup">
+                    <div class="phone-frame">
+                        <div class="phone-screen">
+                            <video class="phone-video" autoplay loop muted playsinline>
+                                <source src="birdbuddy-hero-video.mp4" type="video/mp4">
+                            </video>
+                            <div class="tiktok-ui">
+                                <div class="tiktok-header">
+                                    <span>Following</span>
+                                    <span class="active">For You</span>
+                                </div>
+                                <div class="tiktok-bottom">
+                                    <div class="tiktok-user">🐦 @birdbuddy.creator</div>
+                                    <div class="tiktok-caption">Rare cardinal visiting 😍 #birdbuddy #viral</div>
+                                </div>
+                                <div class="tiktok-sidebar">
+                                    <div class="tiktok-action"><div class="tiktok-icon">❤️</div>245K</div>
+                                    <div class="tiktok-action"><div class="tiktok-icon">💬</div>3.2K</div>
+                                    <div class="tiktok-action"><div class="tiktok-icon">↗️</div>Share</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">$1.4M+</div>
+                <div class="stat-label">Creator Earnings</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Active Creators</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50M+</div>
+                <div class="stat-label">Video Views</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">20%</div>
+                <div class="stat-label">Commission Rate</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="problem-solution">
+        <div class="ps-container">
+            <div class="section-header">
+                <h2>Stop scrolling. Start earning.</h2>
+                <p>Most creators waste time on content that doesn't convert. Bird Buddy creators build income streams that work while they sleep.</p>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card wrong">
+                    <div class="card-header">
+                        <div class="card-icon">❌</div>
+                        <div class="card-title">Regular TikTok creators</div>
+                    </div>
+                    <ul class="card-list">
+                        <li><span>✗</span> Chase trends with no monetization strategy</li>
+                        <li><span>✗</span> Spend hours creating content for pennies</li>
+                        <li><span>✗</span> Rely on unpredictable creator fund payouts</li>
+                        <li><span>✗</span> Struggle to find products that actually convert</li>
+                    </ul>
+                </div>
+                <div class="comparison-card right">
+                    <div class="card-header">
+                        <div class="card-icon">✓</div>
+                        <div class="card-title">Bird Buddy creators</div>
+                    </div>
+                    <ul class="card-list">
+                        <li><span>✓</span> Product practically creates content for you</li>
+                        <li><span>✓</span> Earn 20% on $200+ products that sell themselves</li>
+                        <li><span>✓</span> Nature content never goes out of style</li>
+                        <li><span>✓</span> Monthly payouts you can actually count on</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits" id="benefits">
+        <div class="section-header">
+            <h2>Everything you need to go viral</h2>
+            <p>We don't just give you a product — we set you up for success.</p>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">💰</div>
+                <h3>20% Commission</h3>
+                <p>Industry-leading rates. Earn $40-60+ per sale on premium products that people actually want.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">📦</div>
+                <h3>Free Bird Buddy Kit</h3>
+                <p>Get your own smart feeder shipped free. Real product, real birds, real content.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🎬</div>
+                <h3>Content That Makes Itself</h3>
+                <p>Birds visit daily. AI captures them. You just post. It's literally automated content creation.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">📊</div>
+                <h3>Real-Time Dashboard</h3>
+                <p>Track every click, view, and sale. Know exactly what's working and scale it.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🚀</div>
+                <h3>Viral Templates</h3>
+                <p>Proven hooks, captions, and formats that have generated millions of views.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🏆</div>
+                <h3>Performance Bonuses</h3>
+                <p>Hit milestones, unlock higher rates. Top creators earn 25%+ commission.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps" id="how-it-works">
+        <div class="section-header">
+            <h2>From zero to earning in 4 steps</h2>
+            <p>Most creators make their first sale within 2 weeks.</p>
+        </div>
+        <div class="steps-container">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Apply in 2 minutes</h3>
+                    <p>Quick form, no hoops. We review applications within 48 hours and accept creators of all sizes.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Get your free Bird Buddy</h3>
+                    <p>We ship you a $200+ smart feeder kit at no cost. Set it up in your backyard in 10 minutes.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Let birds create your content</h3>
+                    <p>AI captures stunning photos and videos of visiting birds. Just download and post with your affiliate link.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Watch the sales roll in</h3>
+                    <p>Nature content goes viral. Get monthly payouts via PayPal or bank transfer. Rinse and repeat.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="section-header">
+            <h2>Real creators. Real results.</h2>
+        </div>
+        <div class="testimonials-track">
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text"><strong>Made $2,400 in my first month!</strong> I was skeptical but the product literally sells itself. Birds visit, I post, money comes in. It's wild.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">🦅</div>
+                    <div><div class="testimonial-name">Sarah M.</div><div class="testimonial-role">@sarahs_backyard • 45K followers</div></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text"><strong>Got a video with 3.2M views</strong> just from a cardinal visit. The content makes itself and people LOVE bird content. Best decision I made.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">🐦</div>
+                    <div><div class="testimonial-name">Jake T.</div><div class="testimonial-role">@nature_with_jake • 120K followers</div></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text"><strong>Quit my side job thanks to Bird Buddy.</strong> I make more posting bird videos than I did bartending. And I actually enjoy it.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">🦜</div>
+                    <div><div class="testimonial-name">Emma L.</div><div class="testimonial-role">@emmas_wildlife • 89K followers</div></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text"><strong>From 1K to 50K followers</strong> in 3 months just posting Bird Buddy content. The algorithm loves this stuff and so does my bank account.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">🐤</div>
+                    <div><div class="testimonial-name">Mike C.</div><div class="testimonial-role">@mike_outdoors • 52K followers</div></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text"><strong>Made $2,400 in my first month!</strong> I was skeptical but the product literally sells itself. Birds visit, I post, money comes in. It's wild.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">🦅</div>
+                    <div><div class="testimonial-name">Sarah M.</div><div class="testimonial-role">@sarahs_backyard • 45K followers</div></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text"><strong>Got a video with 3.2M views</strong> just from a cardinal visit. The content makes itself and people LOVE bird content. Best decision I made.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">🐦</div>
+                    <div><div class="testimonial-name">Jake T.</div><div class="testimonial-role">@nature_with_jake • 120K followers</div></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text"><strong>Quit my side job thanks to Bird Buddy.</strong> I make more posting bird videos than I did bartending. And I actually enjoy it.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">🦜</div>
+                    <div><div class="testimonial-name">Emma L.</div><div class="testimonial-role">@emmas_wildlife • 89K followers</div></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text"><strong>From 1K to 50K followers</strong> in 3 months just posting Bird Buddy content. The algorithm loves this stuff and so does my bank account.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">🐤</div>
+                    <div><div class="testimonial-name">Mike C.</div><div class="testimonial-role">@mike_outdoors • 52K followers</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="commission">
+        <div class="commission-content">
+            <div class="commission-rate">20%</div>
+            <div class="commission-label">Commission on every sale</div>
+            <div class="commission-perks">
+                <div class="perk-item"><span>📦</span> Free $200+ product kit</div>
+                <div class="perk-item"><span>💵</span> Monthly payouts</div>
+                <div class="perk-item"><span>📈</span> 30-day cookie window</div>
+                <div class="perk-item"><span>🏆</span> Performance bonuses</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="section-header">
+            <h2>FAQs</h2>
+            <p>Got questions? We've got answers.</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item active">
+                <div class="faq-question">
+                    <h3>How many followers do I need?</h3>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <p>No minimum! We accept creators of all sizes. What matters is engagement and authentic content, not follower count. Many of our top earners started with under 5K followers.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Do I really get a free Bird Buddy?</h3>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, 100% free. Once approved, we ship you a complete smart feeder kit (worth $200+) at no cost. No catches, no deposits, no strings attached.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>How much can I realistically earn?</h3>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <p>Average active creators earn $500-2,000/month. Top performers make $5,000+. With 20% commission on $200+ products, even a few sales per week adds up fast.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>What if no birds visit my feeder?</h3>
+                    <div class="faq-toggle">+</div>
+                </div>
+                <div class="faq-answer">
+                    <p>Birds typically start visiting within 1-2 weeks. We provide tips to attract birds faster. 95%+ of our creators report regular visitors within the first month.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="apply">
+        <div class="cta-content">
+            <h2>Ready to <span>start earning?</span></h2>
+            <p>Join 500+ creators turning bird watching into passive income. Takes 2 minutes to apply.</p>
+            <div class="cta-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" placeholder="Enter your first name">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" placeholder="Enter your last name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>TikTok Handle</label>
+                        <input type="text" placeholder="@yourusername">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Follower Count</label>
+                        <select>
+                            <option value="">Select range</option>
+                            <option value="0-1k">Under 1,000</option>
+                            <option value="1k-10k">1,000 - 10,000</option>
+                            <option value="10k-50k">10,000 - 50,000</option>
+                            <option value="50k-100k">50,000 - 100,000</option>
+                            <option value="100k+">100,000+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Content Niche</label>
+                        <select>
+                            <option value="">Select niche</option>
+                            <option value="nature">Nature & Wildlife</option>
+                            <option value="lifestyle">Lifestyle & Home</option>
+                            <option value="tech">Tech & Gadgets</option>
+                            <option value="family">Family & Parenting</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="form-submit">Apply Now — It's Free →</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <svg width="120" height="32" viewBox="0 0 180 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M60.4492 17.8811C60.4492 16.8971 61.2272 16.1191 62.2112 16.1191H67.8865C69.7168 16.1191 71.1585 16.6223 72.0742 17.538C72.8063 18.2701 73.1723 19.1628 73.1723 20.2609V20.3068C73.1723 22.1147 72.2113 23.1216 71.0673 23.7619C72.9205 24.4716 74.0651 25.6481 74.0651 27.7996V27.8454C74.0651 30.7744 71.6852 32.2391 68.0696 32.2391H62.2117C61.2278 32.2391 60.4498 31.4611 60.4498 30.4772V17.8816L60.4492 17.8811Z" fill="white"/>
+                    <path d="M24.1791 0C10.8252 0 0 10.8252 0 24.1791C0 37.533 10.8252 48.3582 24.1791 48.3582C37.533 48.3582 48.3582 37.533 48.3582 24.1791C48.3582 10.8252 37.533 0 24.1791 0Z" fill="white"/>
+                </svg>
+            </div>
+            <div class="footer-links">
+                <a href="https://mybirdbuddy.com/shop/">Shop</a>
+                <a href="https://support.mybirdbuddy.com/">Support</a>
+                <a href="https://mybirdbuddy.com/privacy-policy/">Privacy</a>
+                <a href="https://mybirdbuddy.com/terms-of-service/">Terms</a>
+            </div>
+            <p class="footer-copy">© 2026 Bird Buddy Inc.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                const item = q.parentElement;
+                const wasActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                if (!wasActive) item.classList.add('active');
+            });
+        });
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.style.opacity = '1';
+                    e.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.benefit-card, .step-item, .comparison-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+        document.querySelector('.form-submit').addEventListener('click', e => {
+            e.preventDefault();
+            const btn = e.target;
+            btn.textContent = 'Submitting...';
+            btn.style.opacity = '0.7';
+            setTimeout(() => {
+                btn.textContent = '✓ Application Received!';
+                btn.style.opacity = '1';
+                setTimeout(() => btn.textContent = 'Apply Now — It\'s Free →', 3000);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
